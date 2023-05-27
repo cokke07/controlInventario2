@@ -8,7 +8,7 @@ pipeline{
         stage('Build'){
             steps{
                 echo 'Construyendo la aplicacion'
-                sh 'mvn clean package'
+                sh 'mvn clean install package'
             }
         }
         stage('Archivar artefacto'){
