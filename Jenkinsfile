@@ -3,7 +3,6 @@ pipeline{
 
     tools{
         maven 'jenkinsmaven'
-        jdk 'jenkisjava'
     }
     stages {
             stage('Checkout') {
