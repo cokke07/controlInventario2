@@ -5,6 +5,12 @@ pipeline{
     maven 'jenkinsmaven'
     }
     stages {
+        stages {
+            stage('Checkout') {
+                steps {
+                    git branch: 'main', url: 'https://github.com/cokke07/controlInventario2.git'
+                }
+            }
         stage('Build'){
             steps{
                 echo 'Construyendo la aplicacion'
