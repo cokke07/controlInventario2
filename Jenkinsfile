@@ -2,33 +2,33 @@ pipeline{
     agent any
 
     tools{
-    maven 'jenkinsmaven'
+        maven 'jenkinsmaven'
+        jdk 'jenkisjava'
     }
     stages {
-        stages {
             stage('Checkout') {
                 steps {
                     git branch: 'main', url: 'https://github.com/cokke07/controlInventario2.git'
                 }
             }
-        stage('Build'){
-            steps{
-                echo 'Construyendo la aplicacion'
-                sh 'mvn clean install package'
+            stage('Build'){
+                steps{
+                    echo 'Construyendo la aplicacion'
+                    sh 'mvn clean package'
+                    }
+                }
+            stage('Archivar artefacto'){
+                steps{
+                    archiveArtifacts 'target/controlInventario2-0.0.1-SNAPSHOT.jar'
+                    }
             }
-        }
-        stage('Archivar artefacto'){
-            steps{
-                archiveArtifacts 'target/controlInventario2-0.0.1-SNAPSHOT.jar'
+            stage('Test'){
+                steps{
+                    echo 'Ejecutar los test'
+                    sh 'mvn test'
+                }
             }
-        }
-        stage('Test'){
-            steps{
-                echo 'Ejecutar los test'
-                sh 'mvn test'
-            }
-        }
-        stage('Sonar Scanner') {
+            stage('Sonar Scanner') {
                 steps {
                     script {
                         def sonarqubeScannerHome = tool name: 'sonar', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
@@ -38,10 +38,10 @@ pipeline{
                     }
                 }
             }
-        stage('Deploy'){
-            steps{
-                echo 'Desplegando el area de desarrollo'
+            stage('Deploy'){
+                steps{
+                    echo 'Desplegando el area de desarrollo'
+                }
             }
         }
     }
-}
