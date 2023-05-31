@@ -22,6 +22,15 @@ pipeline{
                 sh 'mvn test'
             }
         }
+        stage('Sonar Scanner') {
+                steps {
+                    script {
+                        def sonarqubeScannerHome = tool name: 'sonar', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+                        withCredentials([string(credentialsId: 'sonar', variable: 'sonarLogin')]) {
+                            sh '${sonarqubeScannerHome}/bin/sonar-scanner -e -Dsonar.host.url=http://SonarQube:9000 -Dsonar.login=${sonarLogin} -Dsonar.projectName=gs-gradle -Dsonar.projectVersion=${env.BUILD_NUMBER} -Dsonar.projectKey=GS -Dsonar.sources="dondeirtupackage" nq -Dsonar.tests=""dondeirtupackage" p -Dsonar.language=java -Dsonar.java.binaries=.'
+                        }
+                    }
+                }
         stage('Deploy'){
             steps{
                 echo 'Desplegando el area de desarrollo'
