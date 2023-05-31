@@ -6,6 +6,11 @@ pipeline {
     }
 
     stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'master', url: 'https://github.com/cokke07/controlInventario2.git'
+            }
+        }
         stage('Build') {
             steps {
                 script {
