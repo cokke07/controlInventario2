@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     tools {
-        maven 'jenkinsmaven'
+        maven 'M2_HOME'
         jdk 'java11'
     }
 
