@@ -49,7 +49,7 @@ pipeline {
     }
 
     }
-        post ('Notificaciones de resultados'){
+        post {
             always {
                 echo 'Slack Notification'
                 slackSend channel: '#grupo3',
